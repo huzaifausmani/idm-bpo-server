@@ -35,6 +35,12 @@ class AdminInfo(Resource):
         else:
             return jsonify({"status": False, "error": "Admin info updation failed"})
 
+    def get(self):
+        admin_info = model.get_admin_info()
+        return jsonify(
+            {"username": admin_info["username"], "password": admin_info["password"]}
+        )
+
 
 @api.route("/contact_info")
 class ContactInfo(Resource):

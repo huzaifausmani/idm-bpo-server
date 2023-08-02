@@ -26,6 +26,9 @@ class Model:
     def get_contact_info(cls):
         return cls.convert_bson_to_json(cls.contact_info.find())[0]
 
+    def get_admin_info(cls):
+        return cls.convert_bson_to_json(cls.admin.find())[0]
+
     def add_comment(cls, comment):
         cls.comments.insert_one(comment)
         return True
