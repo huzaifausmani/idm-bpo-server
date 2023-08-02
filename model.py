@@ -26,6 +26,12 @@ class Model:
     def get_contact_info(cls):
         return cls.convert_bson_to_json(cls.contact_info.find())[0]
 
+    def get_service_info(cls):
+        return cls.convert_bson_to_json(cls.service_info.find())[0]
+    
+    def get_reviews(cls):
+        return cls.convert_bson_to_json(cls.reviews.find())[0]
+
     def add_comment(cls, comment):
         cls.comments.insert_one(comment)
         return True
@@ -49,6 +55,17 @@ class Model:
                 "$set": {
                     "mail": contact_info["mail"],
                     "telephone": contact_info["telephone"],
+                }
+            },
+        )
+        return True
+
+    def add_service_info(cls, service_info):
+        cls.service_info.insert_one(
+            {"_id": ObjectId("")},
+            {
+                "$set": {
+                    "service": service_info["service"],
                 }
             },
         )
