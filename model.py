@@ -26,11 +26,16 @@ class Model:
     def get_contact_info(cls):
         return cls.convert_bson_to_json(cls.contact_info.find())[0]
 
+<<<<<<< HEAD
     def get_service_info(cls):
         return cls.convert_bson_to_json(cls.service_info.find())[0]
     
     def get_reviews(cls):
         return cls.convert_bson_to_json(cls.reviews.find())[0]
+=======
+    def get_admin_info(cls):
+        return cls.convert_bson_to_json(cls.admin.find())[0]
+>>>>>>> 6db927b132658a124465f26684eeddc5052521ca
 
     def add_comment(cls, comment):
         cls.comments.insert_one(comment)
