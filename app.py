@@ -63,41 +63,6 @@ class ContactInfo(Resource):
             {"telephone": contact_info["telephone"], "mail": contact_info["mail"]}
         )
 
-@api.route("/service_info")
-class ServiceInfo(Resource):
-    def post(self):
-        service_info = {
-            "service": request.json["service"],
-        }
-        if model.add_service_info(service_info):
-            return jsonify(
-                {"status": True, "message": "Service info has been added successfully"}
-            )
-        else:
-            return jsonify({"status": False, "error": "Service info addition failed"})
-
-    def get(self):
-        service_info = model.get_service_info()
-        return jsonify(
-            {"service": service_info["service"]}
-        )
-
-
-@api.route("/reviews")
-class Reviews(Resource):
-    def post(self):
-        pass        
-
-    def get(self):
-        reviews = model.get_reviews()
-        return jsonify(
-            {"star": reviews["star"],
-             "name": reviews["name"],
-             "service": reviews["service"],
-             "description": reviews["description"],
-             }
-        )
-
 
 @api.route("/slider_pic")
 class SliderPic(Resource):
@@ -138,6 +103,33 @@ class SliderPic(Resource):
 class SliderPicDisplay(Resource):
     def get(self):
         return send_file(request.args.get("path"))
+
+
+@api.route("/comments")
+class Comments(Resource):
+    def post(self):
+        pass
+
+    def get(self):
+        pass
+
+
+@api.route("/services")
+class Services(Resource):
+    def post(self):
+        pass
+
+    def get(self):
+        pass
+
+
+@api.route("/requests")
+class Requests(Resource):
+    def post(self):
+        pass
+
+    def get(self):
+        pass
 
 
 if __name__ == "__main__":
