@@ -42,7 +42,7 @@ class Model:
     def get_all_requests(cls):
         return cls.convert_bson_to_json(cls.requests.find())
 
-    def get_requests_on_category(cls, category):
+    def get_requests_by_category(cls, category):
         return cls.convert_bson_to_json(cls.requests.find({"category": category}))
 
     # insertors / setters
@@ -87,7 +87,25 @@ class Model:
         )
         return True
 
+    def read_request(cls, id):
+        result = cls.requests.update_one(
+            {"_id": ObjectId(id)}, {"$set": {"read": True}}
+        )
+        return result.acknowledged
+
     # deleters / removers
     def remove_pic(cls, id):
-        cls.pics.delete_one({"_id": ObjectId(id)})
-        return True
+        result = cls.pics.delete_one({"_id": ObjectId(id)})
+        return result.acknowledged
+
+    def remove_comment(cls, id):
+        result = cls.comments.delete_one({"_id": ObjectId(id)})
+        return result.acknowledged
+
+    def remove_service(cls, id):
+        result = cls.services.delete_one({"_id": ObjectId(id)})
+        return result.acknowledged
+
+    def remove_request(cls, id):
+        result = cls.requests.delete_one({"_id": ObjectId(id)})
+        return result.acknowledged

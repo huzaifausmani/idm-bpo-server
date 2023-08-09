@@ -108,28 +108,73 @@ class SliderPicDisplay(Resource):
 @api.route("/comments")
 class Comments(Resource):
     def post(self):
-        pass
+        comment = {
+            "commenter_name": request.json["commenter_name"],
+            "comment_text": request.json["comment_text"],
+            "service_option": request.json["service_option"],
+            "rating": request.json["rating"],
+        }
+        if model.add_comment(comment):
+            return jsonify({"status": True, "message": "Commented posted successfully"})
+        else:
+            return jsonify(
+                {"status": False, "error": "[DB-ERROR]:Comment posting failed"}
+            )
 
     def get(self):
-        pass
+        id = request.args.get("id")
+        if id is None:
+            return jsonify({"payload": model.get_all_comments()})
+        else:
+            return jsonify({"status": model.remove_comment(id)})
 
 
 @api.route("/services")
 class Services(Resource):
     def post(self):
-        pass
+        service = {"service_name": request.json["service_name"]}
+        if model.add_service(service):
+            return jsonify({"status": True, "message": "Service added successfully"})
+        else:
+            return jsonify(
+                {"status": False, "error": "[DB-ERROR]:Service adding failed"}
+            )
 
     def get(self):
-        pass
+        id = request.args.get("id")
+        if id is None:
+            return jsonify({"payload": model.get_all_services()})
+        else:
+            return jsonify({"status": model.remove_service(id)})
 
 
 @api.route("/requests")
 class Requests(Resource):
     def post(self):
-        pass
+        _request = {
+            "request_category": request.json["request_category"],
+            "requestee_name": request.json["requestee_name"],
+            "requestee_email": request.json["requestee_email"],
+            "requestee_company": request.json["requestee_company"],
+            "requestee_description": request.json["requestee_description"],
+            "read": False,
+        }
+        if model.add_request(_request):
+            return jsonify({"status": True, "message": "Request sent successfully"})
+        else:
+            return jsonify(
+                {"status": False, "error": "[DB-ERROR]:Request sending failed"}
+            )
 
     def get(self):
-        pass
+        id = request.args.get("id")
+        read = request.args.get("read")
+        if id is None:
+            return jsonify({"payload": model.get_all_requests()})
+        elif read is None:
+            return jsonify({"status": model.remove_request(id)})
+        else:
+            return jsonify({"status": model.read_request(id)})
 
 
 if __name__ == "__main__":
