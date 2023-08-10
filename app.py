@@ -96,7 +96,12 @@ class SliderPic(Resource):
             return jsonify({"payload": pics})
         else:
             os.remove(request.args.get("path"))
-            return jsonify({"status": model.remove_pic(request.args.get("id"))})
+            return jsonify(
+                {
+                    "status": model.remove_pic(request.args.get("id")),
+                    "message": "Image removed successfully",
+                }
+            )
 
 
 @api.route("/slider_pic_display")
@@ -126,7 +131,12 @@ class Comments(Resource):
         if id is None:
             return jsonify({"payload": model.get_all_comments()})
         else:
-            return jsonify({"status": model.remove_comment(id)})
+            return jsonify(
+                {
+                    "status": model.remove_comment(id),
+                    "message": "Comment removed successfully",
+                }
+            )
 
 
 @api.route("/services")
@@ -145,7 +155,12 @@ class Services(Resource):
         if id is None:
             return jsonify({"payload": model.get_all_services()})
         else:
-            return jsonify({"status": model.remove_service(id)})
+            return jsonify(
+                {
+                    "status": model.remove_service(id),
+                    "message": "Service removed successfully",
+                }
+            )
 
 
 @api.route("/requests")
@@ -172,9 +187,16 @@ class Requests(Resource):
         if id is None:
             return jsonify({"payload": model.get_all_requests()})
         elif read is None:
-            return jsonify({"status": model.remove_request(id)})
+            return jsonify(
+                {
+                    "status": model.remove_request(id),
+                    "message": "Request removed successfully",
+                }
+            )
         else:
-            return jsonify({"status": model.read_request(id)})
+            return jsonify(
+                {"status": model.read_request(id), "message": "Request marked as read"}
+            )
 
 
 if __name__ == "__main__":
