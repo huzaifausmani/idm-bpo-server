@@ -41,8 +41,16 @@ class AdminInfo(Resource):
         return jsonify(
             {"username": admin_info["username"], "password": admin_info["password"]}
         )
-
-
+    
+@api.route("/validate_login")
+class Validatelogin(Resource):
+    def post(self):
+        admin_info = model.get_admin_info()
+        if (request.json["username"] == admin_info["username"] and request.json["password"] == admin_info["password"]):
+            return jsonify({"status": True, "message": "⚠ Login successfully"})
+        else:
+            return jsonify({"status": False, "error": "⚠ Creds not valid"})
+       
 @api.route("/contact_info")
 class ContactInfo(Resource):
     def post(self):
