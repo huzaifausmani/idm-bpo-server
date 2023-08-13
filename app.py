@@ -7,6 +7,7 @@ from flask import Flask, request, jsonify, send_file
 from flask_restx import Resource, Api
 from flask_pymongo import PyMongo
 from model import Model
+from smtp import send_email
 
 with open("config.json") as jsondata:
     config = json.load(jsondata)
@@ -50,6 +51,17 @@ class Validatelogin(Resource):
             return jsonify({"status": True, "message": "⚠ Login successfully"})
         else:
             return jsonify({"status": False, "error": "⚠ Creds not valid"})
+        
+@api.route("/forget_credentials")
+class ForgetCredentials(Resource):
+    def get(self):
+        admin_info = model.get_admin_info()
+        # code for smtp
+        flag = send_email(admin_info["username"], admin_info["password"])
+        if (flag):
+            return jsonify({"status": True, "message": "Credentials has been sent successfully!"})
+        else:
+            return jsonify({"status": False, "message": "There was an error in sending credentials!"})
        
 @api.route("/contact_info")
 class ContactInfo(Resource):
