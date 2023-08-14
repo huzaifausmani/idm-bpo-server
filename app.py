@@ -48,9 +48,9 @@ class Validatelogin(Resource):
     def post(self):
         admin_info = model.get_admin_info()
         if (request.json["username"] == admin_info["username"] and request.json["password"] == admin_info["password"]):
-            return jsonify({"status": True, "message": "⚠ Login successfully"})
+            return jsonify({"status": True, "message": "Login successfully", "token":"idmbpo12345"})
         else:
-            return jsonify({"status": False, "error": "⚠ Creds not valid"})
+            return jsonify({"status": False, "error": "Invalid username / password"})
         
 @api.route("/forget_credentials")
 class ForgetCredentials(Resource):
