@@ -65,7 +65,7 @@ class Model:
     # updators
     def update_admin_info(cls, admin_info):
         cls.admin.update_one(
-            {"_id": ObjectId("64ca82f82fe928929f9803e4")},
+            {"_id": ObjectId("64db05feaa8250e37195c4cb")},
             {
                 "$set": {
                     "username": admin_info["username"],
@@ -77,7 +77,7 @@ class Model:
 
     def update_contact_info(cls, contact_info):
         cls.contact_info.update_one(
-            {"_id": ObjectId("64c7cf8c3908f37c5a8f5ae1")},
+            {"_id": ObjectId("64db0689aa8250e37195c4cc")},
             {
                 "$set": {
                     "mail": contact_info["mail"],
