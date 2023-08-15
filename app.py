@@ -15,7 +15,7 @@ with open("config.json") as jsondata:
 app = Flask(__name__)
 app.config[
     "MONGO_URI"
-] = f'mongodb+srv://{config["USER"]}:{config["PASS"]}@cluster0.xsrdmeh.mongodb.net/{config["DB"]}?retryWrites=true&w=majority'
+] = f'mongodb+srv://{config["USER"]}:{config["PASS"]}@cluster0.slwojwk.mongodb.net/{config["DB"]}?retryWrites=true&w=majority'
 app.config["SLIDER_IMAGES"] = f"SliderImages\\"
 cors = CORS(app)
 api = Api(app)
